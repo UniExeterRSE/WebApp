@@ -2,7 +2,7 @@
 authors = ["Freddy Wordingham <f.wordingham@exeter.ac.uk>"]
 description = "An example full-stack web-application."
 license = "MIT"
-name = "webapp"
+name = "my_library"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
