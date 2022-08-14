@@ -11,3 +11,19 @@ git clone https://github.com/UniExeterRSE/WebApp.git
 cd WebApp
 poetry install
 ```
+
+## Testing
+
+Run the test harness, with code-coverage, using:
+
+```shell
+poetry run pytest --cache-clear --cov=my_library ./tests/
+```
+
+## Documentation
+
+Build a local set of the documentation using the command:
+
+```shell
+poetry run sphinx-build -b html docs/source/ docs/build/html
+```
