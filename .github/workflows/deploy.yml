@@ -1,0 +1,63 @@
+name: deploy
+
+on:
+    workflow_dispatch:
+
+jobs:
+    update-documentation:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                python-version: ["3.9"]
+            fail-fast: false
+
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 2
+
+            - name: Set up Python ${{ matrix.python-version }}
+              uses: actions/setup-python@v1
+              with:
+                  python-version: ${{ matrix.python-version }}
+
+            - name: Update pip
+              run: |
+                  python -m ensurepip
+                  python -m pip install --upgrade pip
+
+            - name: Configure poetry
+              run: |
+                  python -m pip install poetry
+                  python -m poetry config virtualenvs.in-project true
+                  python -m poetry config virtualenvs.create true
+
+            - name: Set up cache
+              uses: actions/cache@v2
+              id: cache
+              with:
+                  path: .venv
+                  key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('**/pyproject.toml') }}
+
+            - name: Install Package
+              run: python -m poetry install
+
+            - name: Generate Documentation
+              run: |
+                  rm -r docs/build
+                  poetry run sphinx-build -b html docs/source/ docs/build/html
+                  mv docs/build/html/_autosummary docs/build/html/autosummary
+                  mv docs/build/html/_modules docs/build/html/modules
+                  mv docs/build/html/_sources docs/build/html/sources
+                  mv docs/build/html/_static docs/build/html/static
+                  LC_ALL=C find ./docs/build/html -type f -exec sed -i -e 's/_autosummary/.\/autosummary/g' {} +
+                  LC_ALL=C find ./docs/build/html -type f -exec sed -i -e 's/_modules/.\/modules/g' {} +
+                  LC_ALL=C find ./docs/build/html -type f -exec sed -i -e 's/_sources/.\/sources/g' {} +
+                  LC_ALL=C find ./docs/build/html -type f -exec sed -i -e 's/_static/.\/static/g' {} +
+
+            - name: Deploy to GitHub Pages
+              uses: JamesIves/github-pages-deploy-action@v4.2.5
+              with:
+                  branch: gh-pages
+                  folder: docs/build/html
