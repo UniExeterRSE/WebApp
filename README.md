@@ -14,6 +14,14 @@ cd WebApp
 poetry install
 ```
 
+## Running
+
+To run the application:
+
+```shell
+poetry run uvicorn app.api.main:app --reload
+```
+
 ## Testing
 
 Run the test harness, with code-coverage, using:
