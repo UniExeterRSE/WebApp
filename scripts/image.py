@@ -6,8 +6,8 @@ import numpy as np
 from my_library.my_module.my_functions import mandelbrot_image
 
 center = complex(0.4200101, 0.20101023)
-zoom = 40.0
-resolution = (2048, 1024)
+zoom = 30.0
+resolution = (512, 512)
 levels = 80
 
 red = Color("red")
