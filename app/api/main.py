@@ -24,7 +24,12 @@ async def homepage(request: Request):
     Splashpage.
     """
 
-    return settings.templates.TemplateResponse("pages/index.html", {"request": request})
+    centre = complex(0.0, 0.0)
+    zoom = 0.5
+
+    return settings.templates.TemplateResponse(
+        "pages/index.html", {"request": request, "centre": centre, "zoom": zoom}
+    )
 
 
 class MandelbrotInput(BaseModel):
