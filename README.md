@@ -2,6 +2,8 @@
 
 A full-stack application plotting the [Mandelbrot set](https://mathworld.wolfram.com/MandelbrotSet.html).
 
+![Mandelbrot image](./resources/images/mandelbrot.png)
+
 ## Installation
 
 Download an install the `WebApp` package:
