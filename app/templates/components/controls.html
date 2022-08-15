@@ -1,0 +1,28 @@
+<button
+    type="button"
+    class="btn btn-secondary"
+    onclick="move_camera(-1.0, 0.0)"
+>
+    Left <
+</button>
+<button type="button" class="btn btn-secondary" onclick="move_camera(1.0, 0.0)">
+    Right >
+</button>
+<button
+    type="button"
+    class="btn btn-secondary"
+    onclick="move_camera(0.0, -1.0)"
+>
+    Up ^
+</button>
+<button type="button" class="btn btn-secondary" onclick="move_camera(0.0, 1.0)">
+    Down V
+</button>
+
+<script>
+    const move_camera = (dx, dy) => {
+        $real += dx * $zoom;
+        $imag += dy * $zoom;
+        update_image();
+    };
+</script>
