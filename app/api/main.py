@@ -48,8 +48,7 @@ async def sample_mandelbrot_area(real: float, imag: float, zoom: float):
     Evaluate an area of complex numbers.
     """
 
-    center = complex(0.4200101, 0.20101023)
-    zoom = 30.0
+    center = complex(real, imag)
     resolution = (512, 512)
     levels = 80
 
