@@ -1,11 +1,17 @@
+from colour import Color
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
+from PIL import Image as im
 from pydantic import BaseModel
+from tqdm import tqdm
+import numpy as np
+import io
+
 
 from . import settings
 
-from my_library.my_module.my_functions import mandelbrot
+from my_library.my_module.my_functions import mandelbrot, mandelbrot_image
 
 
 app = FastAPI()
@@ -34,3 +40,39 @@ async def sample_mandelbrot(input: MandelbrotInput):
     """
 
     return mandelbrot(complex(input.real, input.imag), input.max_iter)
+
+
+@app.get("/mandelbrot_image/{real}/{imag}/{zoom}")
+async def sample_mandelbrot_area(real: float, imag: float, zoom: float):
+    """
+    Evaluate an area of complex numbers.
+    """
+
+    center = complex(0.4200101, 0.20101023)
+    zoom = 30.0
+    resolution = (512, 512)
+    levels = 80
+
+    red = Color("red")
+    blue = Color("blue")
+    cmap = list(red.range_to(blue, levels + 1))
+
+    data = mandelbrot_image(center, 1.0 / zoom, resolution, levels)
+    shape = data.shape
+
+    colours = np.zeros((shape[1], shape[0], 3), dtype=np.uint8)
+
+    for n in tqdm(range(resolution[0] * resolution[1])):
+        j = n % resolution[1]
+        i = n // resolution[1]
+        [r, g, b] = cmap[int(data[i, j])].rgb
+        colours[j, i, 0] = r * 255.0
+        colours[j, i, 1] = g * 255.0
+        colours[j, i, 2] = b * 255.0
+
+    image = im.fromarray(colours)
+    imgio = io.BytesIO()
+    image.save(imgio, "JPEG")
+    imgio.seek(0)
+
+    return StreamingResponse(content=imgio, media_type="image/jpeg")

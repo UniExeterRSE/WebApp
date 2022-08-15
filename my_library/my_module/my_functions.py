@@ -1,4 +1,3 @@
-from typing import Union
 import numpy as np
 from tqdm import tqdm
 
@@ -26,7 +25,7 @@ def mandelbrot(c: complex, max_iter: int = 80) -> int:
 def mandelbrot_image(
     center: complex,
     scale: float,
-    resolution: Union[int, int] = (512, 512),
+    resolution: tuple[int, int] = (512, 512),
     max_iter: int = 80,
 ) -> np.ndarray:
     """
