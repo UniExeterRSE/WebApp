@@ -37,6 +37,17 @@
         <script src="/static/client.js"></script>
     </head>
     <body>
-        {% block content %} {% endblock %}
+        <div id="wrapper" class="container">
+            <div
+                class="row d-flex align-items-center justify-content-center"
+                style="height: 100vh"
+            >
+                <div class="rounded-3 bg-light">
+                    <div class="container-fluid py-5">
+                        {% block content %} {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
