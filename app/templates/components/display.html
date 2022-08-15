@@ -4,6 +4,7 @@
     var $real = 0.0;
     var $imag = 0.0;
     var $zoom = 1.0;
+    var $zoom_rate = 1.1;
 
     const update_image = () => {
         var image = new Image();
@@ -15,6 +16,9 @@
             scale_y = ctx.canvas.height / $("#image_display").height();
 
             ctx.drawImage(image, 0, 0);
+
+            $zoom *= $zoom_rate;
+            update_image();
         };
         image.src =
             "/mandelbrot_image/" +
@@ -31,7 +35,6 @@
     var chart = undefined;
     $(document).ready(() => {
         ctx = $("#display").get(0).getContext("2d");
-
         update_image();
     });
 </script>
