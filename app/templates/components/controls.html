@@ -19,10 +19,14 @@
     Down V
 </button>
 
+<input type="number" class="form-control" style="width:200px; float:right" onchange="$zoom=this.value;update_image()" value="1" min="1">
+</input>
+
+
 <script>
     const move_camera = (dx, dy) => {
-        $real += dx * $zoom;
-        $imag += dy * $zoom;
+        $real += 0.1 * (dx / $zoom);
+        $imag += 0.1 * (dy / $zoom);
         update_image();
     };
 </script>

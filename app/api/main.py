@@ -54,7 +54,7 @@ async def sample_mandelbrot_area(real: float, imag: float, zoom: float):
     """
 
     center = complex(real, imag)
-    resolution = (512, 512)
+    resolution = (64, 64)
     levels = 80
 
     red = Color("red")
