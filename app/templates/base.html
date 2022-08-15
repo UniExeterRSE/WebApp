@@ -9,9 +9,45 @@
         />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="/static/libraries/bootstrap-dist/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/static/libraries/bootstrap-icons/bootstrap-icons.css"
+        />
+        <link rel="stylesheet" href="/static/libraries/prism/prism.css" />
+        <link
+            rel="stylesheet"
+            href="/static/libraries/prism_live/prism-live.css"
+        />
+        <link id="aesthetics" rel="stylesheet" href="/static/styles/base.css" />
+        <script src="/static/libraries/jquery-3.6.0.min.js"></script>
+        <script src="/static/libraries/bootstrap-dist/js/bootstrap.min.js"></script>
+        <script src="/static/libraries/chart-js/chart.js"></script>
+        <script src="/static/libraries/prism/prism.js"></script>
+        <script src="/static/libraries/prism_live/src/prism-live.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+            rel="stylesheet"
+        />
         <script src="/static/client.js"></script>
     </head>
     <body>
-        {% block content %} {% endblock %}
+        <div id="wrapper" class="container">
+            <div
+                class="row d-flex align-items-center justify-content-center"
+                style="height: 100vh"
+            >
+                <div class="rounded-3 bg-light">
+                    <div class="container-fluid py-5">
+                        {% block content %} {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
