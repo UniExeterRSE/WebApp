@@ -1,0 +1,32 @@
+<button
+    type="button"
+    class="btn btn-secondary"
+    onclick="move_camera(-1.0, 0.0)"
+>
+    Left <
+</button>
+<button type="button" class="btn btn-secondary" onclick="move_camera(1.0, 0.0)">
+    Right >
+</button>
+<button
+    type="button"
+    class="btn btn-secondary"
+    onclick="move_camera(0.0, -1.0)"
+>
+    Up ^
+</button>
+<button type="button" class="btn btn-secondary" onclick="move_camera(0.0, 1.0)">
+    Down V
+</button>
+
+<input id="zoom_input" class="form-control" type="number" style="width:200px; float:right" onchange="$zoom=this.value;update_image()" value="1" min="1">
+</input>
+
+
+<script>
+    const move_camera = (dx, dy) => {
+        $real += 0.1 * (dx / $zoom);
+        $imag += 0.1 * (dy / $zoom);
+        update_image();
+    };
+</script>
