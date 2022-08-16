@@ -16,6 +16,12 @@
             $zoom = $zoom * 0.5;
             $("#zoom_input").val($zoom);
             update_image();
+        } else if (e.which == 61) {
+            $resolution *= 2;
+            update_image();
+        } else if (e.which == 45) {
+            $resolution /= 2;
+            update_image();
         } else if (e.which == 167) {
             $real = 0.0;
             $imag = 0.0;

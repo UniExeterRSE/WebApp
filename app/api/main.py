@@ -47,14 +47,14 @@ async def sample_mandelbrot(input: MandelbrotInput):
     return mandelbrot(complex(input.real, input.imag), input.max_iter)
 
 
-@app.get("/mandelbrot_image/{real}/{imag}/{zoom}")
-async def sample_mandelbrot_area(real: float, imag: float, zoom: float):
+@app.get("/mandelbrot_image/{real}/{imag}/{zoom}/{res}")
+async def sample_mandelbrot_area(real: float, imag: float, zoom: float, res: int):
     """
     Evaluate an area of complex numbers.
     """
 
     center = complex(real, imag)
-    resolution = (64, 64)
+    resolution = (res, res)
     levels = 80
 
     red = Color("red")
